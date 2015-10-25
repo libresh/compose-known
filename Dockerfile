@@ -33,7 +33,7 @@ RUN { \
 RUN pecl install APCu-beta \ 
  && docker-php-ext-enable apcu
 
-ENV KNOWN_VERSION 0.8.4
+ENV KNOWN_VERSION 0.8.5
 VOLUME /var/www/html
 
 RUN curl -o known.tar.gz -SL https://github.com/idno/Known/archive/v${KNOWN_VERSION}.tar.gz \
