@@ -54,5 +54,6 @@ echo "smtp_host = ${MAIL_HOST}"    >> /var/www/html/config.ini
 echo "smtp_port = ${MAIL_PORT}"    >> /var/www/html/config.ini
 echo "smtp_username = ${MAIL_USER}" >> /var/www/html/config.ini
 echo "smtp_password = ${MAIL_PASS}" >> /var/www/html/config.ini
+echo "smtp_secure = ${MAIL_SECURE} >> /var/www/html/config.ini
 
 exec "$@"
