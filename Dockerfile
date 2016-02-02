@@ -30,7 +30,7 @@ RUN { \
 } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # PECL extensions
-RUN pecl install APCu-beta \ 
+RUN pecl install APCu-4.0.10 \
  && docker-php-ext-enable apcu
 
 ENV KNOWN_VERSION 0.8.5
