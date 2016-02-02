@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 
 # https://doc.owncloud.org/server/8.1/admin_manual/installation/source_installation.html#prerequisites
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
- && docker-php-ext-install gd intl mbstring mcrypt mysql opcache pdo_mysql zip json xmlrpc
+ && docker-php-ext-install exif gd intl mbstring mcrypt mysql opcache pdo_mysql zip json xmlrpc
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
