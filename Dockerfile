@@ -14,6 +14,9 @@ RUN apt-get update && apt-get install -y \
       unzip \
  && rm -rf /var/lib/apt/lists/*
 
+#gpg key from https://owncloud.org/owncloud.asc
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "53DE 5B99 2244 9132 8B92  7516 052D B5AC 742E 3B47"
+
 # https://doc.owncloud.org/server/8.1/admin_manual/installation/source_installation.html#prerequisites
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
  && docker-php-ext-install exif gd intl mbstring mcrypt mysql opcache pdo_mysql zip json xmlrpc
@@ -36,10 +39,11 @@ RUN pecl install APCu-4.0.10 \
 ENV KNOWN_VERSION 0.9.0.2
 VOLUME /var/www/html
 
-RUN curl -o known.tar.gz -SL https://github.com/idno/Known/archive/v${KNOWN_VERSION}.tar.gz \
- && tar -xzf known.tar.gz -C /usr/src/ \
- && mv /usr/src/Known-${KNOWN_VERSION} /usr/src/known \
- && rm known.tar.gz \
+RUN curl -o known.zip -SL http://assets.withknown.com/releases/known-${KNOWN_VERSION}.zip \
+ && curl -o known.zip.sig -SL http://assets.withknown.com/releases/known-${KNOWN_VERSION}.zip.sig \
+ && gpg --verify known.zip.sig \
+ && unzip known.zip -d /usr/src/known/ \
+ && rm known.zip* \
  && cd /usr/src/known/IdnoPlugins \
  && curl -L https://github.com/idno/Twitter/archive/master.zip -o twitter.zip \
  && unzip twitter.zip \
