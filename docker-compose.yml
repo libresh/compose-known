@@ -3,7 +3,7 @@ db:
   volumes:
     - ./mysql/runtime:/var/lib/mysql
   env_file:
-    - ./.env
+    - ./env
 app:
   image: indiehosters/known
   links:
@@ -11,7 +11,7 @@ app:
   volumes:
     - ./data:/var/www/html/Uploads
   env_file:
-    - ./.env
+    - ./env
 web:
   image: nginx
   volumes:
