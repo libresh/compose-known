@@ -21,4 +21,4 @@ web:
   volumes_from:
     - app
   environment:
-    - HOST
+    - VIRTUAL_HOST
