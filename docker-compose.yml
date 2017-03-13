@@ -14,7 +14,7 @@ services:
     networks:
     - back
   app:
-    image: known
+    image: indiehosters/known
     links:
       - db
     volumes:
