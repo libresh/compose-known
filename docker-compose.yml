@@ -24,7 +24,7 @@ services:
     volumes:
     - ./data:/var/www/html/Uploads
     environment:
-    - MYSQL_ROOT_PASSWORD
+    - KNOWN_DB_PASSWORD
     - MAIL_PASS
     - MAIL_USER
     - MAIL_HOST
