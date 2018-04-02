@@ -1,38 +1,47 @@
-version: '2'
+version: '2.3'
 networks:
   lb_web:
     external: true
   back:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.0.${SUBNET}.0/24
 services:
   db:
     image: mysql
     volumes:
-      - ./mysql/runtime:/var/lib/mysql
-    env_file:
-      - ./env
+    - ./mysql/runtime:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD
     networks:
     - back
   app:
     image: indiehosters/known
-    links:
-      - db
+    depends_on:
+    - db
     volumes:
-      - ./data:/var/www/html/Uploads
-    env_file:
-      - ./env
+    - ./data:/var/www/html/Uploads
+    environment:
+    - MYSQL_ROOT_PASSWORD
+    - MAIL_PASS
+    - MAIL_USER
+    - MAIL_HOST
+    - MAIL_PORT
+    - MAIL_SECURE
     networks:
     - back
   web:
     image: nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    links:
-      - app
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+    - app
     volumes_from:
-      - app
+    - app
     environment:
-      - VIRTUAL_HOST
+    - VIRTUAL_HOST
     networks:
     - back
     - lb_web
